@@ -4,10 +4,15 @@ class Order extends Model {
   static init(sequelize) {
     super.init(
       {
-        id: Sequelize.INTEGER,
-        transaction_id: Sequelize.INTEGER,
-        user_id: Sequelize.INTEGER,
-        event_id: Sequelize.INTEGER
+        user_id: {
+          type: Sequelize.INTEGER
+        },
+        event_id: {
+          type: Sequelize.INTEGER
+        },
+        payed: {
+          type: Sequelize.BOOLEAN
+        }
       },
       {
         sequelize
@@ -18,9 +23,9 @@ class Order extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Event, { foreignKey: "user_id" });
+    this.belongsTo(models.User, { foreignKey: "user_id" });
     this.belongsTo(models.Event, { foreignKey: "event_id" });
   }
- 
+
 }
 export default Order;

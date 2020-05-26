@@ -26,6 +26,7 @@ class Event extends _sequelize.Model {
   }
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: "avatar_id" });
+    this.belongsTo(models.Order);
   }
 }
 exports. default = Event;

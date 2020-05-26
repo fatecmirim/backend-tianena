@@ -3,9 +3,10 @@ var _User = require('../app/models/User'); var _User2 = _interopRequireDefault(_
 var _Event = require('../app/models/Event'); var _Event2 = _interopRequireDefault(_Event);
 var _File = require('../app/models/File'); var _File2 = _interopRequireDefault(_File);
 var _List = require('../app/models/List'); var _List2 = _interopRequireDefault(_List);
+var _Order = require('../app/models/Order'); var _Order2 = _interopRequireDefault(_Order);
 var _database = require('../config/database'); var _database2 = _interopRequireDefault(_database);
 
-const models = [_User2.default, _Event2.default, _File2.default,_List2.default];
+const models = [_User2.default, _Event2.default, _File2.default,_List2.default, _Order2.default];
 
 class Database {
   constructor() {

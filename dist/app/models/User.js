@@ -26,7 +26,10 @@ class User extends _sequelize.Model {
     // RETORNA O MODEL QUE FOI INICIALIZADO //
     return this;
   }
-
+  static associate(models) {
+    this.belongsTo(models.Event, { foreignKey: "id_events" });
+    this.belongsTo(models.Order);
+  }
   checkPassword(password) {
     return _bcryptjs2.default.compare(password, this.password_hash);
   }

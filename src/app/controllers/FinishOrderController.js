@@ -1,4 +1,6 @@
 import generateQR from "../utils/qrcode-generator";
+import { Boleto } from 'node-boleto';
+import Order from "../models/Order";
 
 class FinishOrderController {
   async finishOrder(req, res) {
@@ -9,10 +11,39 @@ class FinishOrderController {
     const pistaQuantityWoman = req.body.pistaQuantityWoman;
     const customerId = req.body.customerId;
     const eventId = req.body.eventId;
-
-    const response = await generateQR({customerId, eventId, amount});
-    console.log(response);
-    return res.send();    
+    const order = await Order.create({
+      user_id: customerId, 
+      event_id: eventId
+    });
+    console.log(order);
+    
+    const qrCodeGerado = await generateQR({ 
+      customerId, 
+      eventId, 
+      amount,
+      camaroteQuantityMen,
+      camaroteQuantityWoman,
+      pistaQuantityMen,
+      pistaQuantityWoman
+    });
+    const boleto = new Boleto({
+      'banco': "santander", // nome do banco dentro da pasta 'banks'
+      'data_emissao': new Date(),
+      'data_vencimento': new Date(new Date().getTime() + 5 * 24 * 3600 * 1000), // 5 dias futuramente
+      'valor': amount * 100, // R$ 15,00 (valor em centavos)
+      'nosso_numero': (Math.floor(Math.random() * 101) + 50000),
+      'numero_documento': (Math.floor(Math.random() * 101) + 7000),
+      'cedente': "Pagar.me Pagamentos S/A",
+      'cedente_cnpj': `1872705${(Math.floor(Math.random() * 101) + 30)}`, // sem pontos e traços
+      'agencia': "0005",
+      'codigo_cedente': `1254865${(Math.floor(Math.random() * 101) + 30)}`, // PSK (código da carteira)
+      'carteira': "985"
+    });
+    boleto.renderHTML(function (html) {
+      console.log(html); //html gerado, só mandar como corpo do email
+    });
+    console.log(qrCodeGerado); //só mandar o qrCode pelo email
+    return res.send();
   }
 }
 export default new FinishOrderController();

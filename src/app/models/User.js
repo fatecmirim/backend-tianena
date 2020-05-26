@@ -26,7 +26,9 @@ class User extends Model {
     // RETORNA O MODEL QUE FOI INICIALIZADO //
     return this;
   }
-
+  static associate(models) {
+    this.belongsTo(models.Event, { foreignKey: "id_events" });
+  }
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
   }
