@@ -11,6 +11,7 @@ var _ListController = require('./app/controllers/ListController'); var _ListCont
 var _EventFilterController = require('./app/controllers/EventFilterController'); var _EventFilterController2 = _interopRequireDefault(_EventFilterController);
 var _EventMonthController = require('./app/controllers/EventMonthController'); var _EventMonthController2 = _interopRequireDefault(_EventMonthController);
 var _FinishOrderController = require('./app/controllers/FinishOrderController'); var _FinishOrderController2 = _interopRequireDefault(_FinishOrderController);
+var _OrderController = require('./app/controllers/OrderController'); var _OrderController2 = _interopRequireDefault(_OrderController);
 
 const routes = new (0, _express.Router)();
 const upload = _multer2.default.call(void 0, _multer4.default);
@@ -37,6 +38,8 @@ routes.get("/event-filter/:id", _EventFilterController2.default.index);
 routes.get("/event-month", _EventMonthController2.default.index);
 
 // finishOrder
-routes.post("/finishorder", _FinishOrderController2.default.finishOrder); 
+routes.post("/orders", _FinishOrderController2.default.finishOrder);
+routes.get("/orders/users/:userId/events/:eventId", _OrderController2.default.getPayed);
+routes.post("/orders/users/:userId/events/:eventId", _OrderController2.default.payOrder); 
 
 exports. default = routes;

@@ -11,6 +11,7 @@ import ListController from "./app/controllers/ListController";
 import EventFilterController from "./app/controllers/EventFilterController";
 import EventMonthController from "./app/controllers/EventMonthController";
 import FinishOrderController from "./app/controllers/FinishOrderController";
+import OrderController from "./app/controllers/OrderController";
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -37,6 +38,8 @@ routes.get("/event-filter/:id", EventFilterController.index);
 routes.get("/event-month", EventMonthController.index);
 
 // finishOrder
-routes.post("/finishorder", FinishOrderController.finishOrder); 
+routes.post("/orders", FinishOrderController.finishOrder);
+routes.get("/orders/users/:userId/events/:eventId", OrderController.getPayed);
+routes.post("/orders/users/:userId/events/:eventId", OrderController.payOrder); 
 
 export default routes;

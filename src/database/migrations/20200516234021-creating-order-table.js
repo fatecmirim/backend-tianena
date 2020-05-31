@@ -6,25 +6,22 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true,
-      },
-      user_id: {
-        type: Sequelize.INTEGER,
-        references: { model: "users", key: "id" },
-        allowNull: true
-      },
-      event_id: {
-        type: Sequelize.INTEGER,
-        references: { model: "events", key: "id" },
-        allowNull: true
+        primaryKey: true
       },
       payed: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
-      }
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
     });
   },
-
   down: queryInterface => {
     return queryInterface.dropTable('orders');
   },

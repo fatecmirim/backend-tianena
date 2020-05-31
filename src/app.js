@@ -3,7 +3,7 @@ import path from 'path';
 import cors from 'cors';
 import routes from './routes';
 
-import './database';
+import './database/index';
 
 class App {
   constructor() {

@@ -4,18 +4,13 @@ class Order extends _sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        user_id: {
-          type: _sequelize2.default.INTEGER
-        },
-        event_id: {
-          type: _sequelize2.default.INTEGER
-        },
-        payed: {
-          type: _sequelize2.default.BOOLEAN
-        }
+        payed: _sequelize2.default.BOOLEAN,
+        createdAt: _sequelize2.default.DATE,
+        updatedAt: _sequelize2.default.DATE
       },
       {
-        sequelize
+        sequelize,
+        tableName: "orders"
       }
     );
 

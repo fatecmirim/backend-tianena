@@ -9,23 +9,26 @@ class FinishOrderController {
     const camaroteQuantityWoman = req.body.camaroteQuantityWoman;
     const pistaQuantityMen = req.body.pistaQuantityMen;
     const pistaQuantityWoman = req.body.pistaQuantityWoman;
-    const customerId = req.body.customerId;
+    const userId = req.body.userId;
     const eventId = req.body.eventId;
     const order = await Order.create({
-      user_id: customerId, 
+      payed: false,
+      user_id: userId,
       event_id: eventId
     });
-    console.log(order);
-    
-    const qrCodeGerado = await generateQR({ 
-      customerId, 
-      eventId, 
+
+    //é gerado uma imagem base 64, tem que ver como colocar isso no corpo do email
+    //acredito de só mandar já vai ir certo
+    const qrCodeGerado = await generateQR({
+      customerId,
+      eventId,
       amount,
       camaroteQuantityMen,
       camaroteQuantityWoman,
       pistaQuantityMen,
       pistaQuantityWoman
     });
+
     const boleto = new Boleto({
       'banco': "santander", // nome do banco dentro da pasta 'banks'
       'data_emissao': new Date(),
